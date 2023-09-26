@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+
+  .clock {
+    width: 200px;
+    height: 200px;
+    border: 10px solid #333;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .hour-hand,
+  .minute-hand,
+  .second-hand,
+  .center-circle {
+    position: absolute;
+    transform-origin: center;
+  }
+
+  .hour-hand {
+    width: 4px;
+    height: 60px;
+    background-color: #333;
+    top: 50px;
+    left: 98px;
+    transform: rotate(0deg);
+  }
+
+  .minute-hand {
+    width: 2px;
+    height: 80px;
+    background-color: #666;
+    top: 30px;
+    left: 99px;
+    transform: rotate(0deg);
+  }
+
+  .second-hand {
+    width: 1px;
+    height: 90px;
+    background-color: #ff0000;
+    top: 20px;
+    left: 99.5px;
+    transform: rotate(0deg);
+    z-index: 1;
+  }
+
+  .center-circle {
+    width: 10px;
+    height: 10px;
+    background-color: #333;
+    top: 95px;
+    left: 95px;
+    border-radius: 50%;
+  }
+</style>
+<title>Analog Clock</title>
+</head>
+<body>
+<div class="clock">
+  <div class="hour-hand"></div>
+  <div class="minute-hand"></div>
+  <div class="second-hand"></div>
+  <div class="center-circle"></div>
+</div>
+<script>
+function updateClock() {
+  const now = new Date();
+  const hours = now.getUTCHours() + 7; // Adding 7 hours for WIB (Waktu Indonesia Bagian Barat)
+  const minutes = now.getUTCMinutes();
+  const seconds = now.getUTCSeconds();
+
+  const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+  const minuteDeg = minutes * 6 + seconds * 0.1;
+  const secondDeg = seconds * 6;
+
+  document.querySelector(".hour-hand").style.transform = `rotate(${hourDeg}deg)`;
+  document.querySelector(".minute-hand").style.transform = `rotate(${minuteDeg}deg)`;
+  document.querySelector(".second-hand").style.transform = `rotate(${secondDeg}deg)`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+</body>
+</html>
